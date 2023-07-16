@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+@model NGO
+
+<h2>Delete NGO</h2>
+
+<form asp-action="DeleteConfirmed" asp-route-id="@Model.NGOId">
+    <h4>Are you sure you want to delete this NGO?</h4>
+    <div>
+        <label>Name:</label>
+        <span>@Model.Name</span>
+    </div>
+    <div>
+        <label>Address:</label>
+        <span>@Model.Address</span>
+    </div>
+    <div>
+        <label>Contact Number:</label>
+        <span>@Model.ContactNumber</span>
+    </div>
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index">Cancel</a>
+</form>

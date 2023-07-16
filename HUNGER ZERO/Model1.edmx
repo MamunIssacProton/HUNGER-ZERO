@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="HUNGERModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CollectRequest">
+          <Key>
+            <PropertyRef Name="CollectRequestId" />
+          </Key>
+          <Property Name="CollectRequestId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RestaurantId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EmployeeId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RequestedTime" Type="datetime" Nullable="false" />
+          <Property Name="MaxPreservationTime" Type="datetime" Nullable="false" />
+          <Property Name="CompletionStatus" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Distribution">
+          <Key>
+            <PropertyRef Name="DistributionId" />
+          </Key>
+          <Property Name="DistributionId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CollectRequestId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EmployeeId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DistributionTime" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="EmployeeId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="ContactNumber" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FoodItem">
+          <Key>
+            <PropertyRef Name="FoodItemId" />
+          </Key>
+          <Property Name="FoodItemId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CollectRequestId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Quantity" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="ExpiryDate" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NGO">
+          <Key>
+            <PropertyRef Name="NGOId" />
+          </Key>
+          <Property Name="NGOId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Address" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="ContactNumber" Type="nchar" MaxLength="13" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RESTURENT">
+          <Key>
+            <PropertyRef Name="RestaurantId" />
+          </Key>
+          <Property Name="RestaurantId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Address" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="ContactNumber" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CollectRequest_CollectRequest">
+          <End Role="CollectRequest" Type="Self.CollectRequest" Multiplicity="1" />
+          <End Role="CollectRequest1" Type="Self.CollectRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CollectRequest">
+              <PropertyRef Name="CollectRequestId" />
+            </Principal>
+            <Dependent Role="CollectRequest1">
+              <PropertyRef Name="RestaurantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Distribution_Distribution">
+          <End Role="Distribution" Type="Self.Distribution" Multiplicity="1" />
+          <End Role="Distribution1" Type="Self.Distribution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Distribution">
+              <PropertyRef Name="DistributionId" />
+            </Principal>
+            <Dependent Role="Distribution1">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FoodItem_FoodItem">
+          <End Role="FoodItem" Type="Self.FoodItem" Multiplicity="1" />
+          <End Role="FoodItem1" Type="Self.FoodItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FoodItem">
+              <PropertyRef Name="FoodItemId" />
+            </Principal>
+            <Dependent Role="FoodItem1">
+              <PropertyRef Name="CollectRequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HUNGERModelStoreContainer">
+          <EntitySet Name="CollectRequest" EntityType="Self.CollectRequest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Distribution" EntityType="Self.Distribution" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FoodItem" EntityType="Self.FoodItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NGO" EntityType="Self.NGO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RESTURENT" EntityType="Self.RESTURENT" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CollectRequest_CollectRequest" Association="Self.FK_CollectRequest_CollectRequest">
+            <End Role="CollectRequest" EntitySet="CollectRequest" />
+            <End Role="CollectRequest1" EntitySet="CollectRequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Distribution_Distribution" Association="Self.FK_Distribution_Distribution">
+            <End Role="Distribution" EntitySet="Distribution" />
+            <End Role="Distribution1" EntitySet="Distribution" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FoodItem_FoodItem" Association="Self.FK_FoodItem_FoodItem">
+            <End Role="FoodItem" EntitySet="FoodItem" />
+            <End Role="FoodItem1" EntitySet="FoodItem" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HUNGERModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CollectRequest">
+          <Key>
+            <PropertyRef Name="CollectRequestId" />
+          </Key>
+          <Property Name="CollectRequestId" Type="Guid" Nullable="false" />
+          <Property Name="RestaurantId" Type="Guid" Nullable="false" />
+          <Property Name="EmployeeId" Type="Guid" Nullable="false" />
+          <Property Name="RequestedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MaxPreservationTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CompletionStatus" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CollectRequest1" Relationship="Self.FK_CollectRequest_CollectRequest" FromRole="CollectRequest" ToRole="CollectRequest1" />
+          <NavigationProperty Name="CollectRequest2" Relationship="Self.FK_CollectRequest_CollectRequest" FromRole="CollectRequest1" ToRole="CollectRequest" />
+        </EntityType>
+        <EntityType Name="Distribution">
+          <Key>
+            <PropertyRef Name="DistributionId" />
+          </Key>
+          <Property Name="DistributionId" Type="Guid" Nullable="false" />
+          <Property Name="CollectRequestId" Type="Guid" Nullable="false" />
+          <Property Name="EmployeeId" Type="Guid" Nullable="false" />
+          <Property Name="DistributionTime" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Distribution1" Relationship="Self.FK_Distribution_Distribution" FromRole="Distribution" ToRole="Distribution1" />
+          <NavigationProperty Name="Distribution2" Relationship="Self.FK_Distribution_Distribution" FromRole="Distribution1" ToRole="Distribution" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="EmployeeId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ContactNumber" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FoodItem">
+          <Key>
+            <PropertyRef Name="FoodItemId" />
+          </Key>
+          <Property Name="FoodItemId" Type="Guid" Nullable="false" />
+          <Property Name="CollectRequestId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Quantity" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ExpiryDate" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="FoodItem1" Relationship="Self.FK_FoodItem_FoodItem" FromRole="FoodItem" ToRole="FoodItem1" />
+          <NavigationProperty Name="FoodItem2" Relationship="Self.FK_FoodItem_FoodItem" FromRole="FoodItem1" ToRole="FoodItem" />
+        </EntityType>
+        <EntityType Name="NGO">
+          <Key>
+            <PropertyRef Name="NGOId" />
+          </Key>
+          <Property Name="NGOId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ContactNumber" Type="String" MaxLength="13" FixedLength="true" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RESTURENT">
+          <Key>
+            <PropertyRef Name="RestaurantId" />
+          </Key>
+          <Property Name="RestaurantId" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ContactNumber" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CollectRequest_CollectRequest">
+          <End Role="CollectRequest" Type="Self.CollectRequest" Multiplicity="1" />
+          <End Role="CollectRequest1" Type="Self.CollectRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CollectRequest">
+              <PropertyRef Name="CollectRequestId" />
+            </Principal>
+            <Dependent Role="CollectRequest1">
+              <PropertyRef Name="RestaurantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Distribution_Distribution">
+          <End Role="Distribution" Type="Self.Distribution" Multiplicity="1" />
+          <End Role="Distribution1" Type="Self.Distribution" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Distribution">
+              <PropertyRef Name="DistributionId" />
+            </Principal>
+            <Dependent Role="Distribution1">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FoodItem_FoodItem">
+          <End Role="FoodItem" Type="Self.FoodItem" Multiplicity="1" />
+          <End Role="FoodItem1" Type="Self.FoodItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FoodItem">
+              <PropertyRef Name="FoodItemId" />
+            </Principal>
+            <Dependent Role="FoodItem1">
+              <PropertyRef Name="CollectRequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HUNGEREntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CollectRequests" EntityType="Self.CollectRequest" />
+          <EntitySet Name="Distributions" EntityType="Self.Distribution" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="FoodItems" EntityType="Self.FoodItem" />
+          <EntitySet Name="NGOes" EntityType="Self.NGO" />
+          <EntitySet Name="RESTURENTs" EntityType="Self.RESTURENT" />
+          <AssociationSet Name="FK_CollectRequest_CollectRequest" Association="Self.FK_CollectRequest_CollectRequest">
+            <End Role="CollectRequest" EntitySet="CollectRequests" />
+            <End Role="CollectRequest1" EntitySet="CollectRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Distribution_Distribution" Association="Self.FK_Distribution_Distribution">
+            <End Role="Distribution" EntitySet="Distributions" />
+            <End Role="Distribution1" EntitySet="Distributions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FoodItem_FoodItem" Association="Self.FK_FoodItem_FoodItem">
+            <End Role="FoodItem" EntitySet="FoodItems" />
+            <End Role="FoodItem1" EntitySet="FoodItems" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HUNGERModelStoreContainer" CdmEntityContainer="HUNGEREntities1">
+          <EntitySetMapping Name="CollectRequests">
+            <EntityTypeMapping TypeName="HUNGERModel.CollectRequest">
+              <MappingFragment StoreEntitySet="CollectRequest">
+                <ScalarProperty Name="CollectRequestId" ColumnName="CollectRequestId" />
+                <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="RequestedTime" ColumnName="RequestedTime" />
+                <ScalarProperty Name="MaxPreservationTime" ColumnName="MaxPreservationTime" />
+                <ScalarProperty Name="CompletionStatus" ColumnName="CompletionStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Distributions">
+            <EntityTypeMapping TypeName="HUNGERModel.Distribution">
+              <MappingFragment StoreEntitySet="Distribution">
+                <ScalarProperty Name="DistributionId" ColumnName="DistributionId" />
+                <ScalarProperty Name="CollectRequestId" ColumnName="CollectRequestId" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="DistributionTime" ColumnName="DistributionTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="HUNGERModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FoodItems">
+            <EntityTypeMapping TypeName="HUNGERModel.FoodItem">
+              <MappingFragment StoreEntitySet="FoodItem">
+                <ScalarProperty Name="FoodItemId" ColumnName="FoodItemId" />
+                <ScalarProperty Name="CollectRequestId" ColumnName="CollectRequestId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NGOes">
+            <EntityTypeMapping TypeName="HUNGERModel.NGO">
+              <MappingFragment StoreEntitySet="NGO">
+                <ScalarProperty Name="NGOId" ColumnName="NGOId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RESTURENTs">
+            <EntityTypeMapping TypeName="HUNGERModel.RESTURENT">
+              <MappingFragment StoreEntitySet="RESTURENT">
+                <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
